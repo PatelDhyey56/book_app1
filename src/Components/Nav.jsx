@@ -25,7 +25,7 @@ export default function Nav() {
               <Link to="/" className="nav-link active">HOME</Link>
             </li>
           </ul>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <div className="d-grid gap-2 d-md-flex justify-content-md-end">
 
             <form className="d-flex" role="search">
               <input

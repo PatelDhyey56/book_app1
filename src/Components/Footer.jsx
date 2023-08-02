@@ -50,8 +50,7 @@ export default function Footer() {
               Company name
             </h6>
             <p>
-              Here you can use rows and columns to organize your footer content.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              BOOK-APP
             </p>
           </div>
           {/* Grid column */}
@@ -116,7 +115,7 @@ export default function Footer() {
             </p>
             <p>
               <i className="fas fa-envelope me-3" />
-              info@example.com
+              bookapp@gmail.com
             </p>
             <p>
               <i className="fas fa-phone me-3" /> + 01 234 567 88
