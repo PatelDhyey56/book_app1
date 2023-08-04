@@ -1,172 +1,153 @@
 import React, { useState } from 'react'
+import * as Yup from 'yup';
 import Footer from '../Components/Footer';
 import Nav from '../Components/Nav';
-import "./Signup.css"
+import { useNavigate } from "react-router-dom"
 
 export default function Signup() {
-  const signin_initalform = {
-    in_email: '',
-    in_password: '',
-  }
+  const navigate = useNavigate();
+
   const signup_initalform = {
     name: '',
     password: '',
     repassword: '',
     email: '',
   }
-  const [signinform, setSigninform] = useState(signin_initalform);
   const [signupform, setSignupform] = useState(signup_initalform);
 
-  const updatesignin_form = (e) => {
-    setSigninform({
-      ...signinform, [e.target.name]: e.target.value
-    })
-  }
+  // const signin_validation = Yup.object({
+  //   in_password:Yup.string().required("enter password"),
+  //   in_email: Yup.string().email("invalid email").required("enter email"),
+  // });
+
   const updatesignup_form = (e) => {
     setSignupform({
       ...signupform, [e.target.name]: e.target.value
     })
   }
-  const signin_app=(e)=>{
-    e.preventDefault();
-    console.log(JSON.stringify(signin_app.in_email));
+
+  const signup_app = (e) => {
+    // e.preventDefault();
+    console.log();
+    navigate('/signin');  
   }
   return (
     <div>
       <Nav />
-      <div className='mt-3 mb-3'>
-        <div className="login-wrap">
-          <div className="login-html">
-            <input
-              id="tab-1"
-              type="radio"
-              name="tab"
-              className="sign-in"
-              defaultChecked=""
-            />
-            <label htmlFor="tab-1" className="tab">
-              Sign In
-            </label>
-            <input id="tab-2" type="radio" name="tab" className="sign-up" />
-            <label htmlFor="tab-2" className="tab">
-              Sign Up
-            </label>
-            <div className="login-form">
-              <div className="sign-in-htm">
-                <div className="group m-2">
-                  <label htmlFor="user" className="label" >
-                    Email
-                  </label>
-                  <input 
-                    id="in_user"
-                    type="text"
-                    className="input"
-                    name="in_email"
-                    value={signinform.in_email}
-                    onChange={updatesignin_form}
-                  />
-                </div>
-                <div className="group">
-                  <label htmlFor="pass" className="label">
-                    Password
-                  </label>
-                  <input
-                    id="in_pass"
-                    type="password"
-                    className="input"
-                    data-type="password"
-                    name="in_password" 
-                    value={signinform.in_password}
-                    onChange={updatesignin_form}
-                  />
-                </div>
-                <div className="group">
-                  <input
-                    id="check"
-                    type="checkbox"
-                    className="check"
-                    defaultChecked=""
-                  />
-                  <label htmlFor="check">
-                    <span className="icon" /> Keep me Signed in
-                  </label>
-                </div>
-                <div className="group">
-                  <input 
-                  type="submit" 
-                  className="button" 
-                  defaultValue="Sign In" 
-                  onClick={signin_app} />
-                </div>
-                <div className="hr" />
-              </div>
-
-
-              <div className="sign-up-htm">
-                <div className="group m-2">
-                  <label htmlFor="user" className="label" >
-                    Username
-                  </label>
-                  <input
-                    id="user"
-                    type="text"
-                    className="input"
-                    name="name"
-                    value={signupform.name}
-                    onChange={updatesignup_form} />
-                </div>
-                <div className="group">
-                  <label htmlFor="pass" className="label" >
-                    Password
-                  </label>
-                  <input
-                    id="up_pass"
-                    type="password"
-                    className="input"
-                    data-type="password"
-                    name="password" 
-                    value={signupform.password}
-                    onChange={updatesignup_form}
-                  />
-                </div>
-                <div className="group">
-                  <label htmlFor="pass" className="label">
-                    Repeat Password
-                  </label>
-                  <input
-                    id="repass"
-                    type="password"
-                    className="input"
-                    data-type="password"
-                    name="repassword" 
-                    value={signupform.repassword}
-                    onChange={updatesignup_form}
-                  />
-                </div>
-                <div className="group">
-                  <label htmlFor="pass" className="label" >
-                    Email Address
-                  </label>
-                  <input 
-                    id="email"
-                    type="text"
-                    className="input"
-                    name="email"
-                    value={signupform.email}
-                    onChange={updatesignup_form} />
-                </div>
-                <div className="group">
-                  <input type="submit" className="button" defaultValue="Sign Up" />
-                </div>
-                <div className="hr" />
-                <div className="foot-lnk">
-                  <label htmlFor="tab-1">Already Member?</label>
+      <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+        <div className="container h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-12 col-xl-11">
+              <div className="card text-black" style={{ borderRadius: 25 }}>
+                <div className="card-body p-md-5">
+                  <div className="row justify-content-center">
+                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-2">
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                        Sign up
+                      </p>
+                      <form className="mx-1 mx-md-4">
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw" />
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example1c"
+                              className="form-control"
+                              name="name"
+                              value={signupform.name}
+                              onChange={updatesignup_form}
+                            />
+                            <label className="form-label" htmlFor="form3Example1c">
+                              Your Name
+                            </label>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw" />
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="email"
+                              id="form3Example3c"
+                              className="form-control"
+                              name="email"
+                              value={signupform.email}
+                              onChange={updatesignup_form}
+                            />
+                            <label className="form-label" htmlFor="form3Example3c">
+                              Your Email
+                            </label>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-lock fa-lg me-3 fa-fw" />
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="password"
+                              id="form3Example4c"
+                              className="form-control"
+                              name="password"
+                              value={signupform.password}
+                              onChange={updatesignup_form}
+                            />
+                            <label className="form-label" htmlFor="form3Example4c">
+                              Password
+                            </label>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-key fa-lg me-3 fa-fw" />
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="password"
+                              id="form3Example4cd"
+                              className="form-control"
+                              name="repassword"
+                              value={signupform.repassword}
+                              onChange={updatesignup_form}
+                            />
+                            <label className="form-label" htmlFor="form3Example4cd">
+                              Repeat your password
+                            </label>
+                          </div>
+                        </div>
+                        {/* <div className="form-check d-flex justify-content-center mb-5">
+                          <input
+                            className="form-check-input me-2"
+                            type="checkbox"
+                            defaultValue=""
+                            id="form2Example3c"
+                          />
+                          <label className="form-check-label" htmlFor="form2Example3">
+                            I agree all statements in{" "}
+                            <a href="#!">Terms of service</a>
+                          </label>
+                        </div> */}
+                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <button 
+                          type="button" 
+                          className="btn btn-dark btn-lg"
+                          onClick={signup_app}
+                          >
+                            Register
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-1">
+                      <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        className="img-fluid"
+                        alt="Sample_image"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
       <Footer />
     </div>
   )
