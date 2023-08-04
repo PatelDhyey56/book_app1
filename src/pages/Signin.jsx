@@ -1,30 +1,31 @@
 import React from 'react'
-import { useState } from 'react'
 import Nav from '../Components/Nav'
 import Footer from '../Components/Footer'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 export default function Signin() {
-    const navigate =useNavigate();
-    
+    const navigate = useNavigate();
+
     const signin_initalform = {
         email: '',
         password: '',
-      }
-
-    const [signinform, setSigninform] = useState(signin_initalform);
-
-    const updatesignin_form = (e) => {
-        setSigninform({
-          ...signinform, [e.target.name]: e.target.value
-        })
     }
 
-    const signin_app = (e) => {
-        // e.preventDefault();
-        // console.log();
-        navigate('/');
-    }
+    const signin_validation = Yup.object({
+        email: Yup.string().email("Invalid email").required("Invalid Email"),
+        password: Yup.string().min(6).max(8).required("Invalid Password"),
+    });
+
+    const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
+        initialValues: signin_initalform,
+        validationSchema: signin_validation,
+        onSubmit: (values) => {
+            console.log(values);
+            navigate('/')
+        },
+    })
     return (
         <div>
             <Nav />
@@ -48,11 +49,12 @@ export default function Signin() {
                                                             id="form3Example3c"
                                                             className="form-control"
                                                             name="email"
-                                                            value={signinform.email}
-                                                            onChange={updatesignin_form}
+                                                            value={values.email}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
                                                         />
                                                         <label className="form-label" htmlFor="form3Example3c">
-                                                            Your Email
+                                                            {errors.email && touched.email ? errors.email : "Your Email"}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -64,11 +66,12 @@ export default function Signin() {
                                                             id="form3Example4c"
                                                             className="form-control"
                                                             name="password"
-                                                            value={signinform.password}
-                                                            onChange={updatesignin_form}
+                                                            value={values.password}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
                                                         />
                                                         <label className="form-label" htmlFor="form3Example4c">
-                                                            Password
+                                                        { errors.password && touched.password ? errors.password :"Your Password"}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -88,7 +91,7 @@ export default function Signin() {
                                                     <button
                                                         type="button"
                                                         className="btn btn-dark btn-lg"
-                                                        onClick={signin_app}
+                                                        onClick={handleSubmit}
                                                     >
                                                         Sign in
                                                     </button>

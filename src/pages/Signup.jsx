@@ -1,35 +1,37 @@
-import React, { useState } from 'react'
 import * as Yup from 'yup';
 import Footer from '../Components/Footer';
 import Nav from '../Components/Nav';
 import { useNavigate } from "react-router-dom"
+import { useFormik } from 'formik';
 
 export default function Signup() {
   const navigate = useNavigate();
 
   const signup_initalform = {
     name: '',
+    email: '',
     password: '',
     repassword: '',
-    email: '',
   }
-  const [signupform, setSignupform] = useState(signup_initalform);
+  // const [signupform, setSignupform] = useState(signup_initalform);
 
-  // const signin_validation = Yup.object({
-  //   in_password:Yup.string().required("enter password"),
-  //   in_email: Yup.string().email("invalid email").required("enter email"),
-  // });
+  const signup_validation = Yup.object({
+    name: Yup.string().min(3).max(25).required("Invalid Name"),
+    email: Yup.string().email("Invalid email").required("Invalid Email"),
+    password: Yup.string().min(6).max(8).required("Invalid Password"),
+    repassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid RePassword"),
+  });
 
-  const updatesignup_form = (e) => {
-    setSignupform({
-      ...signupform, [e.target.name]: e.target.value
-    })
-  }
-
-  const signup_app = (e) => {
-    // e.preventDefault();
-    console.log();
-    navigate('/signin');  
+  const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
+    initialValues: signup_initalform,
+    validationSchema: signup_validation,
+    onSubmit: (values) => {
+      console.log(values);
+      navigate('/signin')
+    },
+  })
+  const signin_page = () => {
+    navigate('/signin')
   }
   return (
     <div>
@@ -54,11 +56,12 @@ export default function Signup() {
                               id="form3Example1c"
                               className="form-control"
                               name="name"
-                              value={signupform.name}
-                              onChange={updatesignup_form}
+                              value={values.name}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example1c">
-                              Your Name
+                              {errors.name && touched.name ? errors.name : "Your Name"}
                             </label>
                           </div>
                         </div>
@@ -70,11 +73,12 @@ export default function Signup() {
                               id="form3Example3c"
                               className="form-control"
                               name="email"
-                              value={signupform.email}
-                              onChange={updatesignup_form}
+                              value={values.email}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example3c">
-                              Your Email
+                              {errors.email && touched.email ? errors.email : "Your Email"}
                             </label>
                           </div>
                         </div>
@@ -86,11 +90,12 @@ export default function Signup() {
                               id="form3Example4c"
                               className="form-control"
                               name="password"
-                              value={signupform.password}
-                              onChange={updatesignup_form}
+                              value={values.password}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example4c">
-                              Password
+                              {errors.password && touched.password ? errors.password : "Your Password"}
                             </label>
                           </div>
                         </div>
@@ -102,11 +107,12 @@ export default function Signup() {
                               id="form3Example4cd"
                               className="form-control"
                               name="repassword"
-                              value={signupform.repassword}
-                              onChange={updatesignup_form}
+                              value={values.repassword}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example4cd">
-                              Repeat your password
+                              {errors.repassword && touched.repassword ? errors.repassword : "Repeat your password"}
                             </label>
                           </div>
                         </div>
@@ -123,12 +129,19 @@ export default function Signup() {
                           </label>
                         </div> */}
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button 
-                          type="button" 
-                          className="btn btn-dark btn-lg"
-                          onClick={signup_app}
+                          <button
+                            type="button"
+                            className="btn btn-dark btn-lg m-3"
+                            onClick={handleSubmit}
                           >
                             Register
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-dark btn-lg m-3"
+                            onClick={signin_page}
+                          >
+                            Sign in
                           </button>
                         </div>
                       </form>
