@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import Footer from '../Components/Footer';
 import Nav from '../Components/Nav';
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
@@ -16,10 +15,10 @@ export default function Signup() {
   // const [signupform, setSignupform] = useState(signup_initalform);
 
   const signup_validation = Yup.object({
-    name: Yup.string().min(3).max(25).required("Invalid Name"),
-    email: Yup.string().email("Invalid email").required("Invalid Email"),
+    name: Yup.string().min(5).max(25).required("Invalid UserName"),
+    email: Yup.string().email("Not a email").required("Invalid Email"),
     password: Yup.string().min(6).max(8).required("Invalid Password"),
-    repassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid RePassword"),
+    repassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid Repeat Password"),
   });
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
@@ -61,7 +60,7 @@ export default function Signup() {
                               onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example1c">
-                              {errors.name && touched.name ? errors.name : "Your Name"}
+                              {errors.name && touched.name ? errors.name : "Your UserName"}
                             </label>
                           </div>
                         </div>
@@ -132,16 +131,16 @@ export default function Signup() {
                           <button
                             type="button"
                             className="btn btn-dark btn-lg m-3"
-                            onClick={handleSubmit}
+                            onClick={signin_page}
                           >
-                            Register
+                            Sign in
                           </button>
                           <button
                             type="button"
                             className="btn btn-dark btn-lg m-3"
-                            onClick={signin_page}
+                            onClick={handleSubmit}
                           >
-                            Sign in
+                            Register
                           </button>
                         </div>
                       </form>
@@ -160,8 +159,6 @@ export default function Signup() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

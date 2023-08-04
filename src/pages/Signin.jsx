@@ -1,6 +1,5 @@
 import React from 'react'
 import Nav from '../Components/Nav'
-import Footer from '../Components/Footer'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -26,6 +25,9 @@ export default function Signin() {
             navigate('/')
         },
     })
+    const register_page = () => {
+        navigate('/signup')
+    }
     return (
         <div>
             <Nav />
@@ -71,7 +73,7 @@ export default function Signin() {
                                                             onBlur={handleBlur}
                                                         />
                                                         <label className="form-label" htmlFor="form3Example4c">
-                                                        { errors.password && touched.password ? errors.password :"Your Password"}
+                                                            {errors.password && touched.password ? errors.password : "Your Password"}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -90,7 +92,14 @@ export default function Signin() {
                                                 <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                                     <button
                                                         type="button"
-                                                        className="btn btn-dark btn-lg"
+                                                        className="btn btn-dark btn-lg m-3"
+                                                        onClick={register_page}
+                                                    >
+                                                        Register
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-dark btn-lg m-3"
                                                         onClick={handleSubmit}
                                                     >
                                                         Sign in
@@ -112,8 +121,6 @@ export default function Signin() {
                     </div>
                 </div>
             </section>
-
-            <Footer />
         </div>
     )
 }

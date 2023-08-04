@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 
 export default function Nav() {
   return (
@@ -38,8 +39,13 @@ export default function Nav() {
                 Search
               </button >
             </form>
+            <div className='m-2'>
+              <Link to="/cart" className="nav-link active">
+                <ShoppingCartTwoToneIcon fontSize='large' />
+              </Link>
+            </div>
             <button type="button" className="btn btn-dark me-md-2">
-              <Link to="/signup" className="nav-link active">SIGN UP</Link>
+              <Link to="/signin" className="nav-link active">SIGN IN</Link>
             </button>
           </div>
         </div>
