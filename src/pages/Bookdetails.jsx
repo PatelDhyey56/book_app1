@@ -13,15 +13,15 @@ export default function Bookdetails() {
             <h3 className="card-title mb-2">Book</h3>
             <h6 className="card-subtitle mb-2">Type - </h6>
             <div className="row">
-              <div className="col-lg-5 col-md-5 col-sm-6">
+              <div className="col-lg-5 col-md-5 col-sm-6 ">
                 <div className="white-box text-center">
                   <img
                     src="https://www.vedantu.com/seo/content-images/c03fc31a-b1fc-4c5f-af6b-40cb5e2c94aa.jpg"
-                    className="img-responsive" alt="img"
+                    className="img-responsive rounded mx-auto d-block" alt="img"
                   />
                 </div>
               </div>
-              <div className="col-lg-7 col-md-7 col-sm-6">
+              <div className="col-lg-7 col-md-7 col-sm-6 px-4">
                 <h4 className="box-title mt-5">Product description</h4>
                 <p>
                   Lorem Ipsum available,but the majority have suffered alteration in

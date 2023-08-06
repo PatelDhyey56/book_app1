@@ -2,23 +2,33 @@ import * as Yup from 'yup';
 import Nav from '../Components/Nav';
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
+import { toast } from "react-toastify";
+import authService from "../service/auth.service"
 
 export default function Signup() {
   const navigate = useNavigate();
 
   const signup_initalform = {
-    name: '',
-    email: '',
-    password: '',
-    repassword: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    roleId: 1,
+    password: "",
+    confirmPassword: "",
   }
+  const roleList = [
+    { id: 2, name: "buyer" },
+    { id: 3, name: "seller" },
+  ];
   // const [signupform, setSignupform] = useState(signup_initalform);
 
   const signup_validation = Yup.object({
-    name: Yup.string().min(5).max(25).required("Invalid UserName"),
+    firstName: Yup.string().min(2).max(20).required("Invalid UserFirstName"),
+    lastName: Yup.string().min(2).max(20).required("Invalid UserLastName"),
+    roleId: Yup.number().required("Role is required"),
     email: Yup.string().email("Not a email").required("Invalid Email"),
     password: Yup.string().min(6).max(8).required("Invalid Password"),
-    repassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid Repeat Password"),
+    confirmPassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid Repeat Password"),
   });
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
@@ -26,19 +36,23 @@ export default function Signup() {
     validationSchema: signup_validation,
     onSubmit: (values) => {
       console.log(values);
-      navigate('/signin')
+      authService.create(values).then((res) => {
+        toast.success("Successfully registered"); 
+        navigate('/signin')
+      });
     },
   })
+
   const signin_page = () => {
     navigate('/signin')
-  }
+  };
   return (
     <div>
       <Nav />
-      <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-        <div className="container h-100">
+      <section className="vh-100%" style={{ backgroundColor: "#eee" }}>
+        <div className="container h-100 ">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-12 col-xl-11">
+            <div className="col-lg-12 col-xl-11 m-3">
               <div className="card text-black" style={{ borderRadius: 25 }}>
                 <div className="card-body p-md-5">
                   <div className="row justify-content-center">
@@ -54,14 +68,56 @@ export default function Signup() {
                               type="text"
                               id="form3Example1c"
                               className="form-control"
-                              name="name"
-                              value={values.name}
+                              name="firstName"
+                              value={values.firstName}
                               onChange={handleChange}
                               onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example1c">
-                              {errors.name && touched.name ? errors.name : "Your UserName"}
+                              {errors.firstName && touched.firstName ? errors.firstName : "Your FirstName"}
                             </label>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-user fa-lg me-3 fa-fw" />
+                          <div className="form-outline flex-fill mb-0">
+                            <input
+                              type="text"
+                              id="form3Example1c"
+                              className="form-control"
+                              name="lastName"
+                              value={values.lastName}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                            <label className="form-label" htmlFor="form3Example1c">
+                              {errors.lastName && touched.lastName ? errors.lastName : "Your LastName"}
+                            </label>
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-center mb-4">
+                          <i className="fas fa-envelope fa-lg me-3 fa-fw" />
+                          <div className="dropdown">
+                            <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Roles
+                            </button>
+                            <ul className="dropdown-menu dropdown-menu-dark"                 
+                              aria-labelledby="dropdownMenuButton1"
+                              id={"roleId"}
+                              name="roleId"
+                              value={values.roleId}
+                              onChange={handleChange}
+                              >
+                              {roleList.length > 0 &&
+                                roleList.map((role) => (
+                                  <li 
+                                    value={role.id}
+                                    key={"name" + role.id}
+                                  >
+                                    {role.name}
+                                  </li>
+                                ))}
+                            </ul>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">
@@ -105,13 +161,13 @@ export default function Signup() {
                               type="password"
                               id="form3Example4cd"
                               className="form-control"
-                              name="repassword"
-                              value={values.repassword}
+                              name="confirmPassword"
+                              value={values.confirmPassword}
                               onChange={handleChange}
                               onBlur={handleBlur}
                             />
                             <label className="form-label" htmlFor="form3Example4cd">
-                              {errors.repassword && touched.repassword ? errors.repassword : "Repeat your password"}
+                              {errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : "Repeat your password"}
                             </label>
                           </div>
                         </div>
