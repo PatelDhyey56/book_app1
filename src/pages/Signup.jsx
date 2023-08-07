@@ -36,10 +36,10 @@ export default function Signup() {
     validationSchema: signup_validation,
     onSubmit: (values) => {
       console.log(values);
-      authService.create(values).then((res) => {
-        toast.success("Successfully registered"); 
+      // authService.create(values).then((res) => {
+        // toast.success("Successfully registered"); 
         navigate('/signin')
-      });
+      // });
     },
   })
 
@@ -110,7 +110,7 @@ export default function Signup() {
                               >
                               {roleList.length > 0 &&
                                 roleList.map((role) => (
-                                  <li 
+                                  <li className='mx-3'
                                     value={role.id}
                                     key={"name" + role.id}
                                   >

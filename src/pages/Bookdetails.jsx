@@ -10,27 +10,24 @@ export default function Bookdetails() {
       <div className="container">
         <div className="card m-3">
           <div className="card-body">
-            <h3 className="card-title mb-2">Book</h3>
+            <h3 className="card-title mb-2">Rich Dad Poor Dad</h3>
             <h6 className="card-subtitle mb-2">Type - </h6>
             <div className="row">
               <div className="col-lg-5 col-md-5 col-sm-6 ">
                 <div className="white-box text-center">
                   <img
-                    src="https://www.vedantu.com/seo/content-images/c03fc31a-b1fc-4c5f-af6b-40cb5e2c94aa.jpg"
-                    className="img-responsive rounded mx-auto d-block" alt="img"
+                    src="https://beta.whatsinyourstory.com/wp-content/uploads/2023/06/rich-dad-poor-dad-24-2.jpg"
+                    className="card-img-top rounded" alt="img"
                   />
                 </div>
               </div>
               <div className="col-lg-7 col-md-7 col-sm-6 px-4">
                 <h4 className="box-title mt-5">Product description</h4>
                 <p>
-                  Lorem Ipsum available,but the majority have suffered alteration in
-                  some form,by injected humour,or randomised words which don't look
-                  even slightly believable.but the majority have suffered alteration
-                  in some form,by injected humour
+                bout Robert Kiyosaki and his two dads—his real father (poor dad) and the father of his best friend (rich dad)—and the ways in which both men shaped his thoughts about money and investing.
                 </p>
                 <h2 className="mt-5">
-                  $153<small className="text-success">(36%off)</small>
+                  $500<small className="text-success">(36%off)</small>
                 </h2>
                 <button className="btn btn-dark btn-rounded m-2">
                   <Link rel="stylesheet" to="/buy" className="nav-link active">
