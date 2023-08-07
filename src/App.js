@@ -7,6 +7,7 @@ import Signin from './pages/Signin';
 import Cart from './pages/Cart';
 import Errorpage from './pages/Errorpage';
 import Buypage from './pages/Buypage';
+import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
           <Route path="/bookdetail" element={<Bookdetails />} />
           <Route path="/*" element={<Errorpage />} />
         </Routes>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

@@ -3,6 +3,9 @@ import Nav from '../Components/Nav'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import authService from "../service/auth.service"
 
 export default function Signin() {
     const navigate = useNavigate();
@@ -22,8 +25,20 @@ export default function Signin() {
         validationSchema: signin_validation,
         onSubmit: (values) => {
             console.log(values);
-            navigate('/')
-        },
+            authService.login(values).then((res) => {
+                if (res.status === 400) {
+                    toast.error("Enter valid data", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
+                else {
+                    navigate('/')
+                    toast.success("Successfully registered", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
+            });
+        }
     })
     const register_page = () => {
         navigate('/signup')

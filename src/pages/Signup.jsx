@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 import Nav from '../Components/Nav';
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import authService from "../service/auth.service"
 
 export default function Signup() {
@@ -12,7 +13,7 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     email: "",
-    roleId: 1,
+    roleId: 2,
     password: "",
     confirmPassword: "",
   }
@@ -36,14 +37,23 @@ export default function Signup() {
     validationSchema: signup_validation,
     onSubmit: (values) => {
       console.log(values);
-      // authService.create(values).then((res) => {
-        // toast.success("Successfully registered"); 
+      authService.create(values).then((res) => { 
+        if(res.status === 400){
+          toast.error("Enter valid data", {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }
+        else{
         navigate('/signin')
-      // });
-    },
-  })
-
-  const signin_page = () => {
+        toast.success("Successfully registered", {
+          position: toast.POSITION.TOP_RIGHT
+        });
+          }
+        });
+      },
+    })
+    
+    const signin_page = () => {
     navigate('/signin')
   };
   return (
@@ -101,16 +111,16 @@ export default function Signup() {
                             <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                               Roles
                             </button>
-                            <ul className="dropdown-menu dropdown-menu-dark"                 
+                            <ul className="dropdown-menu dropdown-menu-dark"
                               aria-labelledby="dropdownMenuButton1"
                               id={"roleId"}
                               name="roleId"
                               value={values.roleId}
                               onChange={handleChange}
-                              >
+                            >
                               {roleList.length > 0 &&
                                 roleList.map((role) => (
-                                  <li className='mx-3'
+                                  <li className="mx-3"
                                     value={role.id}
                                     key={"name" + role.id}
                                   >
