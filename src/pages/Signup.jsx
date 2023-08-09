@@ -18,8 +18,8 @@ export default function Signup() {
     confirmPassword: "",
   }
   const roleList = [
-    { id: 2, name: "buyer" },
-    { id: 3, name: "seller" },
+    { id: 2, name: "Buyer" },
+    { id: 3, name: "Seller" },
   ];
   // const [signupform, setSignupform] = useState(signup_initalform);
 
@@ -43,18 +43,18 @@ export default function Signup() {
       //     toast.error("Enter valid data", {
       //       position: toast.POSITION.TOP_RIGHT
       //     });
-        // }
-        // else{
-        navigate('/signin')
-        toast.success("Successfully registered", {
-          position: toast.POSITION.TOP_RIGHT
+      // }
+      // else{
+      navigate('/signin')
+      toast.success("Successfully registered", {
+        position: toast.POSITION.TOP_RIGHT
         // });
         //   }
-        });
-      },
-    })
-    
-    const signin_page = () => {
+      });
+    },
+  })
+
+  const signin_page = () => {
     navigate('/signin')
   };
   return (
@@ -109,26 +109,24 @@ export default function Signup() {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                           <div className="dropdown">
-                            <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Roles
-                            </button>
-                            <ul className="dropdown-menu dropdown-menu-dark"
-                              aria-labelledby="dropdownMenuButton1"
+                            <select
+                              className="ropdown-menu dropdown-menu-dark btn btn-dark select"
                               id={"roleId"}
                               name="roleId"
                               value={values.roleId}
-                              onChange={handleChange}
-                            >
+                              onChange={handleChange}>
+
                               {roleList.length > 0 &&
                                 roleList.map((role) => (
-                                  <li className="mx-3"
+                                  <option className="m-1"
                                     value={role.id}
                                     key={"name" + role.id}
                                   >
                                     {role.name}
-                                  </li>
+                                  </option>
                                 ))}
-                            </ul>
+
+                            </select>
                           </div>
                         </div>
                         <div className="d-flex flex-row align-items-center mb-4">

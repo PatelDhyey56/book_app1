@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function Nav() {
+  const [user, setUser] = useState(false);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -32,9 +34,17 @@ export default function Nav() {
                 <ShoppingCartTwoToneIcon fontSize='large' />
               </Link>
             </div>
-            <button type="button" className="btn btn-dark me-md-2">
-              <Link to="/signin" className="nav-link active">SIGN IN</Link>
-            </button>
+            <div className='m-2'>
+            {user === true ?
+              <Link to="/account" className="nav-link active">
+                <PersonIcon fontSize="large" />
+              </Link>
+                :
+              <button type="button" className="btn btn-dark me-md-2">
+                <Link to="/signin" className="nav-link active" >SIGN IN</Link>
+              </button>
+            }
+            </div>
           </div>
         </div>
       </div>

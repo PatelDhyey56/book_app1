@@ -30,9 +30,11 @@ export default function HomeNav() {
                             value={setSearchbook.bookname}
                             onChange={changeSearch}
                         />
-                        <button type="button" className="btn btn-dark" onClick={() => { return setSearchbook(initialBookName.bookname) }}>
-                            <Link to={`/searchbook/${searchbook.bookname}`} className="btn btn-dark">Search</Link>
-                        </button>
+                        <div className='m-1'>
+                            <button type="button" className="btn btn-dark" onClick={() => { return setSearchbook(initialBookName.bookname) }}>
+                                <Link to={`/searchbook/${searchbook.bookname}`} className="btn btn-dark">Search</Link>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

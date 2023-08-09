@@ -33,6 +33,7 @@ export default function Signin() {
                 }
                 else {
                     navigate('/')
+                    // setUser(true);
                     toast.success("Successfully registered", {
                         position: toast.POSITION.TOP_RIGHT
                     });
