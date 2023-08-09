@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-export default function Card({ title, discription, img, web }) {
+export default function Card({ title, discription, img, web ,id }) {
 
     return (
         <div>
@@ -12,9 +12,9 @@ export default function Card({ title, discription, img, web }) {
                         <p className="card-text">
                             {discription}...
                         </p>
-                        <Link to="/bookdetail" className="btn btn-dark">
-                            Details<
-                                /Link>
+                        <Link to={`/bookdetail/${id}`} className="btn btn-dark">
+                            Details
+                        </Link>
                     </div>
                 </div>
             </div>

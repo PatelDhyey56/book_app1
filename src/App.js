@@ -19,7 +19,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/buy" element={<Buypage />} />
-          <Route path="/bookdetail" element={<Bookdetails />} />
+          <Route path="/bookdetail/:id" element={<Bookdetails />} />
           <Route path="/searchbook/:name" element={<Searchbook />} />
           <Route path="/*" element={<Errorpage />} />
         </Routes>

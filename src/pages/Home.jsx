@@ -34,7 +34,7 @@ export default function Home() {
         {book.map((e) => {
           return (
             <div className='col-md-3 m-3' key={e._id}>
-              <Card title={e.name.slice(0, 30)} discription={e.description.slice(0, 100)} img={e.base64image} web={e.url} />
+              <Card title={e.name.slice(0, 30)} discription={e.description.slice(0, 100)} img={e.base64image} web={e.url} id={e.id}/>
             </div>
           )
         })}
