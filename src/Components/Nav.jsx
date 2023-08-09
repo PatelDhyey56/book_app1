@@ -27,18 +27,6 @@ export default function Nav() {
             </li>
           </ul>
           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button >
-            </form>
             <div className='m-2'>
               <Link to="/cart" className="nav-link active">
                 <ShoppingCartTwoToneIcon fontSize='large' />

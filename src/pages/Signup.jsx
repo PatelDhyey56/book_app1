@@ -37,18 +37,19 @@ export default function Signup() {
     validationSchema: signup_validation,
     onSubmit: (values) => {
       console.log(values);
-      authService.create(values).then((res) => { 
-        if(res.status === 400){
-          toast.error("Enter valid data", {
-            position: toast.POSITION.TOP_RIGHT
-          });
-        }
-        else{
+      delete values.confirmPassword;
+      // authService.create(values).then((res) => { 
+      //   if(res.status === 400){
+      //     toast.error("Enter valid data", {
+      //       position: toast.POSITION.TOP_RIGHT
+      //     });
+        // }
+        // else{
         navigate('/signin')
         toast.success("Successfully registered", {
           position: toast.POSITION.TOP_RIGHT
-        });
-          }
+        // });
+        //   }
         });
       },
     })

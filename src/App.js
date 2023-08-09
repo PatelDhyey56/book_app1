@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import Errorpage from './pages/Errorpage';
 import Buypage from './pages/Buypage';
 import { ToastContainer } from 'react-toastify';
+import Searchbook from './pages/Searchbook';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/buy" element={<Buypage />} />
           <Route path="/bookdetail" element={<Bookdetails />} />
+          <Route path="/searchbook/:name" element={<Searchbook />} />
           <Route path="/*" element={<Errorpage />} />
         </Routes>
         <ToastContainer />

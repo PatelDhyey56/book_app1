@@ -1,6 +1,14 @@
 import request from "./request";
 
 const ENDPOINT = "api/user";
+const BOOK="api/book"
+
+const Allbook =(data)=>{
+  const url = `${BOOK}/all`;
+  return request.post(url, data).then((res) => {
+    return res;
+  });
+}
 
 const login = async (data) => {
   const url = `${ENDPOINT}/login`;
@@ -19,6 +27,7 @@ const create = async (data) => {
 const authService = {
   login,
   create,
+  Allbook,
 };
 
 export default authService;
