@@ -3,28 +3,22 @@ import Nav from '../Components/Nav'
 import Footer from '../Components/Footer'
 import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
-
-const API = "http://localhost:5000/api/book"
+import bookService from "../service/book.service"
 
 export default function Bookdetails() {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [bookdetail, setBookdetail] = useState([]);
 
-  const findBook = async () => {
-      try {
-          const res = await fetch(`${API}/byId?id=${id}`)
-          const data = await res.json();
-          // console.log(data.result);
-          setBookdetail(data.result);
-      }
-      catch (e) {
-          console.log(e);
-      }
+  const findBook = async (e) => {
+    bookService.getById(Number(id)).then((res) => {
+      setBookdetail(res);
+      console.log(bookdetail)
+    });
   }
-  useEffect(()=>{
+  useEffect(() => {
     findBook();
-  },[setBookdetail])
+  }, [setBookdetail])
 
   return (
     <div>
@@ -46,10 +40,10 @@ export default function Bookdetails() {
               <div className="col-lg-7 col-md-7 col-sm-6 px-4">
                 <h4 className="box-title mt-5">Product description</h4>
                 <p>
-                {bookdetail.description}
+                  {bookdetail.description}
                 </p>
                 <h2 className="mt-5">
-                 ${bookdetail.price}<small className="text-success">(36%off)</small>
+                  ${bookdetail.price}<small className="text-success">(36%off)</small>
                 </h2>
                 <button className="btn btn-dark btn-rounded m-2">
                   <Link rel="stylesheet" to="/buy" className="nav-link active">
@@ -58,9 +52,9 @@ export default function Bookdetails() {
                 </button>
                 <button className="btn btn-dark btn-rounded m-2">
                   <Link rel="stylesheet" to="/cart" className="nav-link active">
-                  Add to cart
+                    Add to cart
                   </Link>
-                  </button>
+                </button>
               </div>
             </div>
           </div>
