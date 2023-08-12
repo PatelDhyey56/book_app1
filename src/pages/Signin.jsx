@@ -6,9 +6,11 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authService from "../service/auth.service"
+import { useGlobalContext } from '../context/userContext';
 
 export default function Signin() {
     const navigate = useNavigate();
+    const userinfo =useGlobalContext();
 
     const signin_initalform = {
         email: '',
@@ -24,7 +26,7 @@ export default function Signin() {
         initialValues: signin_initalform,
         validationSchema: signin_validation,
         onSubmit: (values) => {
-            console.log(values);
+            // console.log(values);
             authService.login(values).then((res) => {
                 if (res.status === 400) {
                     toast.error("Enter valid data", {
@@ -33,7 +35,7 @@ export default function Signin() {
                 }
                 else {
                     navigate('/')
-                    // setUser(true);
+                    userinfo.setUserLogin(true);
                     toast.success("Successfully registered", {
                         position: toast.POSITION.TOP_RIGHT
                     });

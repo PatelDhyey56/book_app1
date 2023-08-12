@@ -1,10 +1,12 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import PersonIcon from '@mui/icons-material/Person';
+import { useGlobalContext } from '../context/userContext';
 
 export default function Nav() {
-  const [user, setUser] = useState(false);
+  const userinfo =useGlobalContext();
+  // console.log(userinfo.userLogin)
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -35,7 +37,7 @@ export default function Nav() {
               </Link>
             </div>
             <div className='m-2'>
-            {user === true ?
+            {userinfo.userLogin === true ?
               <Link to="/account" className="nav-link active">
                 <PersonIcon fontSize="large" />
               </Link>

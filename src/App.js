@@ -9,20 +9,25 @@ import Errorpage from './pages/Errorpage';
 import Buypage from './pages/Buypage';
 import { ToastContainer } from 'react-toastify';
 import Account from './pages/Account';
+import loader from "../src/assets/images/loader.gif";
+
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/bookdetail/:id" element={<Bookdetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/buy" element={<Buypage />} />
-          <Route path="/*" element={<Errorpage />} />
-        </Routes>
+        <div className="loader-wrapper">
+          <img src={loader} alt="loader" />
+        </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/bookdetail/:id" element={<Bookdetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/buy" element={<Buypage />} />
+            <Route path="/*" element={<Errorpage />} />
+          </Routes>
         <ToastContainer />
       </div>
     </BrowserRouter>

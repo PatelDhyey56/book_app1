@@ -4,21 +4,29 @@ import Footer from '../Components/Footer'
 import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import bookService from "../service/book.service"
+import { useGlobalContext } from '../context/userContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function Bookdetails() {
   const { id } = useParams();
-
+  const navigate = useNavigate();
+  const item = useGlobalContext();
   const [bookdetail, setBookdetail] = useState([]);
 
   const findBook = async (e) => {
     bookService.getById(Number(id)).then((res) => {
       setBookdetail(res);
-      console.log(bookdetail)
     });
   }
   useEffect(() => {
     findBook();
   }, [setBookdetail])
+
+  const addcartitem = () => {
+    navigate('/cart')
+    item.cartitem.push(bookdetail);
+    // console.log(item.cartitem)
+  }
 
   return (
     <div>
@@ -50,10 +58,8 @@ export default function Bookdetails() {
                     Buy Now
                   </Link>
                 </button>
-                <button className="btn btn-dark btn-rounded m-2">
-                  <Link rel="stylesheet" to="/cart" className="nav-link active">
-                    Add to cart
-                  </Link>
+                <button className="btn btn-dark btn-rounded m-2" onClick={addcartitem}>
+                  Add to cart
                 </button>
               </div>
             </div>

@@ -35,7 +35,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     const { data } = response;
-    console.log("responseeee,", response);
+    // console.log("responseeee,", response);
     removeRequest(response.config.url);
     if (data?.code && data?.code !== 200) {
       toast.error(
@@ -47,7 +47,7 @@ request.interceptors.response.use(
     }
   },
   (error) => {
-    console.log("responseeee error,", error);
+    // console.log("responseeee error,", error);
 
     removeRequest(error.config.url);
     toast.error(error?.response?.data?.error ?? "Somthing went wrong");

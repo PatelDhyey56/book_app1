@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import authService from "../service/auth.service"
 
 export default function Signup() {
   const navigate = useNavigate();
