@@ -24,8 +24,14 @@ export default function Bookdetails() {
 
   const addcartitem = () => {
     navigate('/cart')
-    item.cartitem.push(bookdetail);
-    // console.log(item.cartitem)
+    item.cartitem.price=0;
+    item.cartitem.books=0;
+    item.cartitem.book_list.push(bookdetail);
+    item.cartitem.book_list.map((e) => {
+      item.cartitem.price=item.cartitem.price+e.price;
+      item.cartitem.books=item.cartitem.books+1;
+    })
+    // console.log(item.cartitem);
   }
 
   return (

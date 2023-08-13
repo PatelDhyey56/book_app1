@@ -13,7 +13,7 @@ export default function Signup() {
     lastName: "",
     email: "",
     roleId: 2,
-    password: "",
+    password: "", 
     confirmPassword: "",
   }
   const roleList = [

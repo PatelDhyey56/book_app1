@@ -2,10 +2,15 @@ import { useState , createContext, useContext } from "react";
 
 const UserContext =createContext();
 
+const initialcart_item={
+    books:0,
+    price:0,
+    book_list:[]
+}
 const UserProvider =({children})=>{
     const [userLogin, setUserLogin] = useState(false);
-    // const [cartitem,setCartitem]=useState([]);
-    const cartitem=[];
+    // const [cartitem,setCartitem]=useState(initialcart_item);
+    const cartitem=initialcart_item;
     const value={
         userLogin,
         setUserLogin,
