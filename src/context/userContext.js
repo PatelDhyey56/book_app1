@@ -9,13 +9,12 @@ const initialcart_item={
 }
 const UserProvider =({children})=>{
     const [userLogin, setUserLogin] = useState(false);
-    // const [cartitem,setCartitem]=useState(initialcart_item);
-    const cartitem=initialcart_item;
+    const [cartitem,setCartitem]=useState(initialcart_item);
     const value={
         userLogin,
         setUserLogin,
         cartitem,
-        // setCartitem,
+        setCartitem,    
     }
     // console.log(cartitem)
     return(

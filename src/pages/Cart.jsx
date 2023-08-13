@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useGlobalContext } from '../context/userContext';
 
 export default function Cart() {
-  const item = useGlobalContext();
+  const item =  JSON.parse(localStorage.getItem('Book_cart'));
   return (
     <div>
       <Nav />
@@ -23,9 +23,9 @@ export default function Cart() {
                       <div className="p-5">
                         <div className="d-flex justify-content-between align-items-center mb-5">
                           <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
-                          <h6 className="mb-0 text-muted">{item.cartitem.books} items</h6>
+                          <h6 className="mb-0 text-muted">{item.books} items</h6>
                         </div>
-                        {item.cartitem.book_list.map((e) => {
+                        {item.book_list.map((e) => {
                           return (
                             <div className="row mb-4 d-flex justify-content-between align-items-center" key={e.id}>
                               <div className="col-md-2 col-lg-2 col-xl-2">
@@ -89,8 +89,8 @@ export default function Cart() {
                         <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                         <hr className="my-4" />
                         <div className="d-flex justify-content-between mb-4">
-                          <h5 className="text-uppercase">items {item.cartitem.books}</h5>
-                          <h5>$ {item.cartitem.price}</h5>
+                          <h5 className="text-uppercase">items {item.books}</h5>
+                          <h5>$ {item.price}</h5>
                         </div>
                         <h5 className="text-uppercase mb-3">Shipping</h5>
                         <div className="mb-4 pb-2">
@@ -117,7 +117,7 @@ export default function Cart() {
                         <hr className="my-4" />
                         <div className="d-flex justify-content-between mb-5">
                           <h5 className="text-uppercase">Total price</h5>
-                          <h5>$ {item.cartitem.price}</h5>
+                          <h5>$ {item.price}</h5>
                         </div>
                         <button
                           type="button"

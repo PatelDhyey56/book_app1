@@ -23,14 +23,39 @@ export default function Bookdetails() {
   }, [setBookdetail])
 
   const addcartitem = () => {
+    let bookinCart = false;
+    let localBooks = localStorage.getItem('Book_cart');
+    if (localBooks) {
+      const localitem = JSON.parse(localStorage.getItem('Book_cart'));
+      for (const e of localitem.book_list) {
+        if (e.id === bookdetail.id) {
+          bookinCart = true;
+          break;  
+        }
+      }
+      if (bookinCart === true) {
+        window.alert("Already in Cart");
+      } 
+      else {
+        localitem.price = 0;
+        localitem.books = 0;
+        localitem.book_list.push(bookdetail);
+        for (const e of localitem.book_list) {
+          localitem.price = localitem.price + e.price;
+          localitem.books = localitem.books + 1;
+        }
+        localStorage.setItem('Book_cart', JSON.stringify(localitem));
+        console.log(localitem);
+      }
+    }
+    else {
+      // const initial_item = useGlobalContext();
+      item.cartitem.price = bookdetail.price;
+      item.cartitem.books = 1;
+      item.cartitem.book_list.push(bookdetail);
+      localStorage.setItem('Book_cart', JSON.stringify(item.cartitem));
+    }
     navigate('/cart')
-    item.cartitem.price=0;
-    item.cartitem.books=0;
-    item.cartitem.book_list.push(bookdetail);
-    item.cartitem.book_list.map((e) => {
-      item.cartitem.price=item.cartitem.price+e.price;
-      item.cartitem.books=item.cartitem.books+1;
-    })
     // console.log(item.cartitem);
   }
 
