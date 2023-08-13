@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from '../Components/Nav'
 import Footer from '../Components/Footer'
 import { Link } from 'react-router-dom'
-import { useGlobalContext } from '../context/userContext';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DummyCart from '../Components/DummyCart';
 
 export default function Cart() {
-  const item =  JSON.parse(localStorage.getItem('Book_cart'));
+  const item = JSON.parse(localStorage.getItem('Book_cart'));
+  if (!item) {
+    return (
+     <DummyCart />
+    )
+  }
+  const deleteitem = (id) => {
+    // localStorage.removeItem("")
+    window.alert(id);
+  }
   return (
     <div>
       <Nav />
@@ -25,6 +35,7 @@ export default function Cart() {
                           <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
                           <h6 className="mb-0 text-muted">{item.books} items</h6>
                         </div>
+                        <hr className="my-4" />
                         {item.book_list.map((e) => {
                           return (
                             <div className="row mb-4 d-flex justify-content-between align-items-center" key={e.id}>
@@ -42,7 +53,7 @@ export default function Cart() {
                               <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                                 <button
                                   className="btn btn-link px-2"
-                                  // onClick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                // onClick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                 >
                                   <i className="fas fa-minus" />
                                 </button>
@@ -56,7 +67,7 @@ export default function Cart() {
                                 />
                                 <button
                                   className="btn btn-link px-2"
-                                  // onClick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                // onClick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 >
                                   <i className="fas fa-plus" />
                                 </button>
@@ -65,14 +76,12 @@ export default function Cart() {
                                 <h6 className="mb-0">${e.price}</h6>
                               </div>
                               <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                                {/* <a href="#!" className="text-muted">
-                              <i className="fas fa-times" />
-                            </a> */}
+                                <DeleteIcon onClick={() => { deleteitem(e.id) }} />
                               </div>
+                              <hr className="my-4" />
                             </div>
                           )
                         })}
-                        <hr className="my-4" />
                         <hr className="my-4" />
                         <div className="pt-5">
                           <h6 className="mb-0">

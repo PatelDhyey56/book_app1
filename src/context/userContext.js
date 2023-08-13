@@ -10,6 +10,7 @@ const initialcart_item={
 const UserProvider =({children})=>{
     const [userLogin, setUserLogin] = useState(false);
     const [cartitem,setCartitem]=useState(initialcart_item);
+    // localStorage.setItem('Book_cart', JSON.stringify(cartitem));
     const value={
         userLogin,
         setUserLogin,
