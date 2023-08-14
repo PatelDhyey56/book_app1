@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import PersonIcon from '@mui/icons-material/Person';
 import { useGlobalContext } from '../context/userContext';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function Nav() {
-  const userinfo =useGlobalContext();
+  const userinfo = useGlobalContext();
   // console.log(userinfo.userLogin)
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -30,23 +31,37 @@ export default function Nav() {
               <Link to="/" className="nav-link active">HOME</Link>
             </li>
           </ul>
-          <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-            <div className='m-2'>
-              <Link to="/cart" className="nav-link active">
-                <ShoppingCartTwoToneIcon fontSize='large' />
-              </Link>
-            </div>
-            <div className='m-2'>
+          <div className="d-flex justify-content-end">
             {userinfo.userLogin === true ?
-              <Link to="/account" className="nav-link active">
-                <PersonIcon fontSize="large" />
-              </Link>
-                :
-              <button type="button" className="btn btn-dark me-md-2">
-                <Link to="/signin" className="nav-link active" >SIGN IN</Link>
-              </button>
+              <div className="d-flex justify-content-start">
+                <div className='m-2'>
+                  <Link to="/cart" className="nav-link active">
+                    <ShoppingCartTwoToneIcon fontSize='large' />
+                  </Link>
+                </div>
+                <div className='m-2'>
+                  <Link to="/account" className="nav-link active">
+                    <PersonIcon fontSize="large" />
+                  </Link>
+                </div>
+                <div className='m-2'>
+                  <LogoutIcon onClick={()=>{userinfo.userdelete()}}/>
+                </div>
+              </div>
+              :
+              <div className="d-flex justify-content-start">
+                <div className='m-2'>
+                  <Link to="/cart" className="nav-link active">
+                    <ShoppingCartTwoToneIcon fontSize='large' />
+                  </Link>
+                </div>
+                <div className='m-2'>
+                  <button type="button" className="btn btn-dark me-md-2">
+                    <Link to="/signin" className="nav-link active" >SIGN IN</Link>
+                  </button>
+                </div>
+              </div>
             }
-            </div>
           </div>
         </div>
       </div>

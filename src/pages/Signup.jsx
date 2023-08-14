@@ -1,9 +1,10 @@
-import * as Yup from 'yup';
 import Nav from '../Components/Nav';
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
+import authService from "../service/auth.service"
 import 'react-toastify/dist/ReactToastify.css';
+import validation from '../context/validation';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -13,29 +14,19 @@ export default function Signup() {
     lastName: "",
     email: "",
     roleId: 2,
-    password: "", 
+    password: "",
     confirmPassword: "",
   }
   const roleList = [
     { id: 2, name: "Buyer" },
     { id: 3, name: "Seller" },
   ];
-  // const [signupform, setSignupform] = useState(signup_initalform);
-
-  const signup_validation = Yup.object({
-    firstName: Yup.string().min(2).max(20).required("Invalid UserFirstName"),
-    lastName: Yup.string().min(2).max(20).required("Invalid UserLastName"),
-    roleId: Yup.number().required("Role is required"),
-    email: Yup.string().email("Not a email").required("Invalid Email"),
-    password: Yup.string().min(6).max(8).required("Invalid Password"),
-    confirmPassword: Yup.string().oneOf([Yup.ref("password"), null, "Password Must Be Match"]).required("Invalid Repeat Password"),
-  });
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
     initialValues: signup_initalform,
-    validationSchema: signup_validation,
+    validationSchema: validation.signup_validation,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       delete values.confirmPassword;
       // authService.create(values).then((res) => { 
       //   if(res.status === 400){

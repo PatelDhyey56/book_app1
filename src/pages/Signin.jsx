@@ -2,7 +2,7 @@ import React from 'react'
 import Nav from '../Components/Nav'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import validation from '../context/validation';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authService from "../service/auth.service"
@@ -17,14 +17,9 @@ export default function Signin() {
         password: '',
     }
 
-    const signin_validation = Yup.object({
-        email: Yup.string().email("Invalid email").required("Invalid Email"),
-        password: Yup.string().min(6).max(8).required("Invalid Password"),
-    });
-
     const { values, errors, touched, handleChange, handleSubmit, handleBlur } = useFormik({
         initialValues: signin_initalform,
-        validationSchema: signin_validation,
+        validationSchema: validation.signin_validation,
         onSubmit: (values) => {
             // console.log(values);
             authService.login(values).then((res) => {
@@ -35,7 +30,7 @@ export default function Signin() {
                 }
                 else {
                     navigate('/')
-                    userinfo.setUserLogin(true);
+                    userinfo.setUser(res);
                     toast.success("Successfully registered", {
                         position: toast.POSITION.TOP_RIGHT
                     });
