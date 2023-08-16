@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useEffect } from "react";
-
-
+import { toast } from 'react-toastify';
 const UserContext = createContext();
 
 const initialcart_item = {
@@ -28,9 +27,25 @@ const UserProvider = ({ children }) => {
         _setUser(user);
     };
     const userdelete=()=>{
-        localStorage.removeItem("User");
         setUserLogin(false);
+        localStorage.removeItem("User");
+        localStorage.removeItem("Book_cart");
     }
+
+    useEffect(() => {
+        const itemStr =
+          JSON.parse(localStorage.getItem("User")) ||
+          intialUserValue;
+        // if the item doesn't exist, return null
+        if (!itemStr.id) {
+            // toast.error("Plsese Login...", {
+            //     position: toast.POSITION.TOP_RIGHT
+            // });
+        }
+        _setUser(itemStr);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+
     useEffect(()=>{
         const userinfo=JSON.parse(localStorage.getItem('User'));
         if(userinfo){

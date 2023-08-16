@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from "./context/userContext"
+import { CartWrapper } from "./context/cart"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserProvider>
-    <App />
+      <CartWrapper>
+        <App />
+      </CartWrapper>
     </UserProvider>
   </React.StrictMode>
 );

@@ -4,13 +4,17 @@ import Footer from '../Components/Footer'
 import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import bookService from "../service/book.service"
-import { useGlobalContext } from '../context/userContext'
+import { useGlobalContext } from "../context/userContext";
+import { useCartContext } from '../context/cart';
 import { useNavigate } from 'react-router-dom'
+import cartService from "../service/cart.service";
+import { toast } from 'react-toastify';
 
 export default function Bookdetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const item = useGlobalContext();
+  const authContext = useGlobalContext();
+  const cartContext = useCartContext();
   const [bookdetail, setBookdetail] = useState([]);
 
   const findBook = async (e) => {
@@ -22,41 +26,34 @@ export default function Bookdetails() {
     findBook();
   }, [setBookdetail])
 
+  const addToCart = async (book, id) => {
+    return cartService
+      .add({
+        userId: id,
+        bookId: book.id,
+        quantity: 1,
+      })
+      .then((res) => {
+        return { error: false, message: "Item added in cart" };
+      })
+      .catch((e) => {
+        // if (e.status === 500)
+        //   return { error: true, message: "Item already in the cart" };
+        // else return { error: true, message: "something went w  rong" };
+      });
+  };
+
   const addcartitem = () => {
-    let bookinCart = false;
-    let localBooks = localStorage.getItem('Book_cart');
-    if (localBooks) {
-      const localitem = JSON.parse(localStorage.getItem('Book_cart'));
-      for (const e of localitem.book_list) {
-        if (e.id === bookdetail.id) {
-          bookinCart = true;
-          break;  
-        }
-      }
-      if (bookinCart === true) {
-        window.alert("Already in Cart");
+    addToCart(bookdetail, authContext.user.id).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
       } 
       else {
-        localitem.price = 0;
-        localitem.books = 0;
-        localitem.book_list.push(bookdetail);
-        for (const e of localitem.book_list) {
-          localitem.price = localitem.price + e.price;
-          localitem.books = localitem.books + 1;
-        }
-        localStorage.setItem('Book_cart', JSON.stringify(localitem));
-        console.log(localitem);
+        toast.success(res.message);
+        cartContext.updateCart();
+        navigate('/cart')
       }
-    }
-    else {
-      // const initial_item = useGlobalContext();
-      item.cartitem.price = bookdetail.price;
-      item.cartitem.books = 1;
-      item.cartitem.book_list.push(bookdetail);
-      localStorage.setItem('Book_cart', JSON.stringify(item.cartitem));
-    }
-    navigate('/cart')
-    // console.log(item.cartitem);
+    });
   }
 
   return (

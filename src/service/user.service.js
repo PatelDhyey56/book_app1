@@ -30,13 +30,6 @@ const deleteUser = async (id) => {
   });
 };
 
-const update = async (data) => {
-  const url = `${ENDPOINT}`;
-  return request.put(url, data).then((res) => {
-    return res;
-  });
-};
-
 const updateProfile = async (data) => {
   const url = `${ENDPOINT}`;
   return request.put(url, data).then((res) => {
@@ -49,7 +42,6 @@ const userService = {
   getAllRoles,
   getById,
   deleteUser,
-  update,
   updateProfile,
 };
 
