@@ -6,13 +6,15 @@ import { useFormik } from 'formik';
 import userservice from "../service/user.service"
 import { toast } from 'react-toastify';
 import validation from '../context/validation';
+import { useGlobalContext } from '../context/userContext';
 
 export default function Account() {
   const userinfo = JSON.parse(localStorage.getItem("User"));
+  const user = useGlobalContext();
 
   const userinfo_initalform = {
-    id:userinfo.id,
-    role:userinfo.role,
+    id: userinfo.id,
+    role: userinfo.role,
     firstName: userinfo.firstName,
     lastName: userinfo.lastName,
     email: userinfo.email,
@@ -31,6 +33,8 @@ export default function Account() {
     initialValues: userinfo_initalform,
     validationSchema: validation.accunt_validation,
     onSubmit: (values) => {
+      delete values.confirmPassword;
+      localStorage.removeItem("User");
       userservice.updateProfile(values).then((res) => {
         if (res.status === 400) {
           toast.error("Enter valid data", {
@@ -38,13 +42,13 @@ export default function Account() {
           });
         }
         else {
-          console.log(res);
-            toast.success("Successfully registered", {
-                position: toast.POSITION.TOP_RIGHT
-            });
+          user.setUser(res);
+          toast.success("Successfully registered", {
+            position: toast.POSITION.TOP_RIGHT
+          });
         }
-    });
-     },
+      });
+    },
   })
 
   const edituser = () => {
@@ -206,7 +210,7 @@ export default function Account() {
                     type="button"
                     className="btn btn-dark btn-lg m-3"
                     onClick={handleSubmit}
-                    >
+                  >
                     Update
                   </button>
                 </div>
