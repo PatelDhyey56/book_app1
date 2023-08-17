@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import PersonIcon from '@mui/icons-material/Person';
 import { useGlobalContext } from '../context/userContext';
+import { useCartContext } from '../context/cart';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { toast } from 'react-toastify';
 
 export default function Nav() {
   const userinfo = useGlobalContext();
+  const cartContext = useCartContext();
+  const userdelete=()=>{
+    userinfo.user_logout();
+    cartContext.updateCart([]);
+}
   // console.log(userinfo.userLogin)
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -45,7 +52,7 @@ export default function Nav() {
                   </Link>
                 </div>
                 <div className='m-2'>
-                  <LogoutIcon onClick={()=>{userinfo.userdelete()}}/>
+                  <LogoutIcon onClick={userdelete}/>
                 </div>
               </div>
               :

@@ -3,12 +3,7 @@ import { toast } from 'react-toastify';
 
 const UserContext = createContext();
 
-const initialcart_item = {
-    books: 0,
-    price: 0,
-    book_list: []
-}
-const intialUserValue = {
+const user_intialUserValue = {
     id: 0,
     email: "",
     firstName: "",
@@ -18,25 +13,27 @@ const intialUserValue = {
     password: "",
 };
 const UserProvider = ({ children }) => {
-    const [cartitem, setCartitem] = useState(initialcart_item);
     const [userLogin, setUserLogin] = useState(false);
-    const [user, _setUser] = useState(intialUserValue);
-    
+    const [user, _setUser] = useState(user_intialUserValue);
+
     const setUser = (user) => {
         localStorage.setItem("User", JSON.stringify(user));
         setUserLogin(true);
         _setUser(user);
     };
-    const userdelete=()=>{
+    const user_logout =()=>{
         setUserLogin(false);
+        _setUser(user_intialUserValue);
         localStorage.removeItem("User");
-        localStorage.removeItem("Book_cart");
+        toast.success("Successfully LogOut!...", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        
     }
-
     useEffect(() => {
         const itemStr =
-          JSON.parse(localStorage.getItem("User")) ||
-          intialUserValue;
+            JSON.parse(localStorage.getItem("User")) ||
+            user_intialUserValue;
         // if the item doesn't exist, return null
         if (!itemStr.id) {
             // toast.error("Plsese Login...", {
@@ -45,25 +42,24 @@ const UserProvider = ({ children }) => {
         }
         _setUser(itemStr);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+    }, []);
 
-    useEffect(()=>{
-        const userinfo=JSON.parse(localStorage.getItem('User'));
-        if(userinfo){
+    useEffect(() => {
+        const userinfo = JSON.parse(localStorage.getItem('User'));
+        if (userinfo) {
             setUserLogin(true);
         }
-        else{
+        else {
             setUserLogin(false);
         }
-    },[setUserLogin])
-    
+    }, [setUserLogin])
+
     const value = {
         user,
         setUser,
         userLogin,
-        userdelete,
-        cartitem,
-        setCartitem,
+        setUserLogin,
+        user_logout,
     }
     // console.log(cartitem)
     return (

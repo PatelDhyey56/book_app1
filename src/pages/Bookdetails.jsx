@@ -81,11 +81,6 @@ export default function Bookdetails() {
                 <h2 className="mt-5">
                   ${bookdetail.price}<small className="text-success">(36%off)</small>
                 </h2>
-                <button className="btn btn-dark btn-rounded m-2">
-                  <Link rel="stylesheet" to="/buy" className="nav-link active">
-                    Buy Now
-                  </Link>
-                </button>
                 <button className="btn btn-dark btn-rounded m-2" onClick={addcartitem}>
                   Add to cart
                 </button>

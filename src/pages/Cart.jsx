@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import Nav from '../Components/Nav'
 import Footer from '../Components/Footer'
-import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import orderService from '../service/order.service';
 import cartService from '../service/cart.service';
 import { toast } from 'react-toastify';
 import { useGlobalContext } from "../context/userContext";
 import { useCartContext } from '../context/cart';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Cart() {
   const authContext = useGlobalContext();
@@ -80,26 +79,32 @@ export default function Cart() {
   };
 
   const placeOrder = async () => {
-    if (authContext.user.id) {
-      const userCart = await cartService.getList(authContext.user.id);
-      if (userCart.length) {
-        try {
-          let cartIds = userCart.map((element) => element.id);
-          const newOrder = {
-            userId: authContext.user.id,
-            cartIds,
-          };
-          const res = await orderService.placeOrder(newOrder);
-          if (res) {
-            cartContext.updateCart();
-            navigate("/");
-            toast.success("order successfully");
+    if (itemsInCart === 0) {
+      toast.error("Your cart is empty");
+    }
+    else {
+      if (authContext.user.id===0) {
+        toast.error("Please Login!...");
+      }
+      else {
+        const userCart = await cartService.getList(authContext.user.id);
+        if (userCart.length) {
+          try {
+            let cartIds = userCart.map((element) => element.id);
+            const newOrder = {
+              userId: authContext.user.id,
+              cartIds,
+            };
+            const res = await orderService.placeOrder(newOrder);
+            if (res) {
+              cartContext.updateCart();
+              navigate("/");
+              toast.success("order successfully");
+            }
+          } catch (error) {
+            toast.error(`Order cannot be placed ${error}`);
           }
-        } catch (error) {
-          toast.error(`Order cannot be placed ${error}`);
         }
-      } else {
-        toast.error("Your cart is empty");
       }
     }
   };
@@ -135,11 +140,13 @@ export default function Cart() {
                             return (
                               <div className="row mb-4 d-flex justify-content-between align-items-center" key={e.id}>
                                 <div className="col-md-2 col-lg-2 col-xl-2">
-                                  <img
-                                    src={e.book.base64image}
-                                    className="img-fluid rounded-3"
-                                    alt="Cotton T-shirt"
-                                  />
+                                  <Link to={`/bookdetail/${e.book.id}`} className="nav-link active">
+                                    <img
+                                      src={e.book.base64image}
+                                      className="img-fluid rounded-3"
+                                      alt="Cotton T-shirt"
+                                    />
+                                  </Link>
                                 </div>
                                 <div className="col-md-3 col-lg-3 col-xl-3">
                                   <h6 className="text-muted">{e.book.name.slice(0, 30)}</h6>
@@ -233,7 +240,6 @@ export default function Cart() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   )
